@@ -18,7 +18,7 @@
 //===========================================================================
 // Uncomment the define line for what board you have (V4.2.2 or V4.2.7)
 //===========================================================================
-//#define ENDER3_V422_BOARD    //Ender 3 with V4.2.2 Board
+#define ENDER3_V422_BOARD    //Ender 3 with V4.2.2 Board
 //#define ENDER3_V427_BOARD    //Ender 3 with V4.2.7 Board
 
 //#define ENDER3_V2_V422_BOARD //Ender 3 V2 with V4.2.2 Board
@@ -63,7 +63,7 @@
 //===========================================================================
 
 // Probing Grid Points - If you want more or less EZABL probe points change the number below, use odd numbers. Total points is # times #.
-#define EZABL_POINTS 3
+#define EZABL_POINTS 5
 
 // Probe Edge - How far from the edge of the bed to probe from. Use 50 if using binder clips. This also sets the edge inset value for MANUAL_MESH_LEVELING.
 #define EZABL_PROBE_EDGE 35
@@ -235,7 +235,7 @@
 // If you want to use manual mesh leveling you can enable the below option. This is for generating a MANUAL mesh WITHOUT a probe.
 // Mesh Bed Leveling Documentation: http://marlinfw.org/docs/gcode/G029-mbl.html 
 // NOTE: If you want to automate the leveling process our EZABL kits do this for you. Check them out here: http://EZABL.TH3DStudio.com
-//#define MANUAL_MESH_LEVELING
+#define MANUAL_MESH_LEVELING
 
 // POWER LOSS RECOVERY -----------------------------
 // Continue after Power-Loss feature will store the current state to the SD Card at the start of each layer

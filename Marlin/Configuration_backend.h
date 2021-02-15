@@ -6,7 +6,7 @@
 //======================= DO NOT MODIFY THIS FILE ===========================
 //===========================================================================
 
-#define UNIFIED_VERSION "TH3D UFW 2.21a"
+#define UNIFIED_VERSION "Ope's 3D Printer"
 
 /**
  * TH3D Sanity Checks
@@ -503,9 +503,9 @@
   #define SHOW_CUSTOM_BOOTSCREEN
 #endif
 
-#if ENABLED(TH3D_STATUS_SCREEN_LOGO)
-  #define CUSTOM_STATUS_SCREEN_IMAGE
-#endif
+//#if ENABLED(TH3D_STATUS_SCREEN_LOGO)
+//  #define CUSTOM_STATUS_SCREEN_IMAGE
+//#endif
 
 #if DISABLED(DWIN_CREALITY_LCD) && DISABLED(SPACE_SAVER)
   #define INDIVIDUAL_AXIS_HOMING_MENU
