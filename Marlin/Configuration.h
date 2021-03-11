@@ -10,7 +10,6 @@
 //===========================================================================
 
 // ONLY UNCOMMENT THINGS IN ONE PRINTER SECTION!!! IF YOU HAVE MULTIPLE MACHINES FLASH THEM ONE AT A TIME.
-// UNCOMMENT MEANS REMOVING THE // IN FRONT OF A #define XXXXXX LINE.
 
 //===========================================================================
 // *****************   CREALITY PRINTERS W/V4.2.X BOARD    ******************
@@ -19,7 +18,7 @@
 //===========================================================================
 // Uncomment the define line for what board you have (V4.2.2 or V4.2.7)
 //===========================================================================
-//#define ENDER3_V422_BOARD    //Ender 3 with V4.2.2 Board
+#define ENDER3_V422_BOARD    //Ender 3 with V4.2.2 Board
 //#define ENDER3_V427_BOARD    //Ender 3 with V4.2.7 Board
 
 //#define ENDER3_V2_V422_BOARD //Ender 3 V2 with V4.2.2 Board
@@ -29,7 +28,8 @@
 //#define ENDER5_V427_BOARD    //Ender 5 with V4.2.7 Board
 
 // V4.2.2 TMC Driver Settings - Uncomment if you have TMC drivers on a 4.2.2 Board to set driver timings
-//#define V422_TMC220X_DRIVERS //"A" or "B" Code on SD Slot
+//#define V422_TMC2208_DRIVERS //"A" Code on SD Slot
+//#define V422_TMC2209_DRIVERS //"B" Code on SD Slot
 
 // If you are using our EZOut V1/V2 (connected to LCD header) filament sensor kit please follow the install guide
 // and then uncomment the #define EZOUT_ENABLE line below.
@@ -76,9 +76,6 @@
 
 // Heaters on During Probing - Heaters will stay on during probing - May reduce accuracy do not use unless told to by support
 //#define HEATERS_ON_DURING_PROBING
-
-// Probing Steppers Off - This will cycle the XYE stepper motors during probing to reduce interference from them. When using this do NOT touch the X or Y during probing as they will not be locked.
-//#define PROBING_STEPPERS_OFF
 
 // Slow Down Moves - Does your machine make weird noises/vibrations when it is probing the mesh? Enable this to slow down the speed between probe points.
 //#define SLOWER_PROBE_MOVES
@@ -227,18 +224,18 @@
 #define LINEAR_ADVANCE_K 0
 
 // BL TOUCH ----------------------------------------
-// There are 2 ways to connect the BL Touch to the V4.2.X boards - All on the 5 pin header or using 3 pins on the 5 pin header + Z Endstop port
-// For details on these 2 types of connections refer to our help center article here: https://support.th3dstudio.com/hc/product-information/3rd-party-control-boards/creality-boards/creality-v4-2-2-v4-2-7-board-bl-touch-wiring-options/
-// If you want to use the BL-Touch uncomment the BLTOUCH line below and uncomment #define CUSTOM_PROBE above and then enter in your offsets above in the CUSTOM PROBE section.
+// If you want to use the BL-Touch uncomment the 2 lines below and refer to the V42X BLTouch Picture in the Marlin Folder for wiring.
+// You also need to uncomment #define CUSTOM_PROBE above and then enter in your offsets above in the CUSTOM PROBE section.
+// Video guide from Teaching Tech: https://youtu.be/neS7lB7fCww?t=790
 //#define BLTOUCH
-// If you are using the 5 pin header for all the BL Touch connections, uncomment the below line
-//#define CREALITY_V42X_BLTOUCH_ON_5PIN
+// Here is where you set your servo pin. For V4.2.X Boards use PB0
+//#define SERVO0_PIN PB0
 
 // MANUAL MESH LEVELING ----------------------------
 // If you want to use manual mesh leveling you can enable the below option. This is for generating a MANUAL mesh WITHOUT a probe.
 // Mesh Bed Leveling Documentation: http://marlinfw.org/docs/gcode/G029-mbl.html 
 // NOTE: If you want to automate the leveling process our EZABL kits do this for you. Check them out here: http://EZABL.TH3DStudio.com
-//#define MANUAL_MESH_LEVELING
+#define MANUAL_MESH_LEVELING
 
 // POWER LOSS RECOVERY -----------------------------
 // Continue after Power-Loss feature will store the current state to the SD Card at the start of each layer
@@ -268,7 +265,7 @@
  //Ender 3/5 V42X Board Settings
 #if ENABLED(ENDER3_V422_BOARD) || ENABLED(ENDER5_V422_BOARD) || ENABLED(ENDER3_V427_BOARD) || ENABLED(ENDER5_V427_BOARD)
   //V42X with TMC Driver Sanity Checks
-  #if (ENABLED(V422_TMC220X_DRIVERS) || ENABLED(ENDER3_V427_BOARD) || ENABLED(ENDER5_V427_BOARD)) && ENABLED(LINEAR_ADVANCE)
+  #if (ENABLED(V422_TMC2208_DRIVERS) || ENABLED(V422_TMC2209_DRIVERS) || ENABLED(ENDER3_V427_BOARD) || ENABLED(ENDER5_V427_BOARD)) && ENABLED(LINEAR_ADVANCE)
     #error "Linear Advance does NOT work on the V4.2.X boards with the TMC drivers due to how Creality has them setup. Disable Linear Advance to continue."
   #endif
 
@@ -437,18 +434,18 @@
   #define Y_MAX_ENDSTOP_INVERTING false
   #define Z_MAX_ENDSTOP_INVERTING false
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false
+  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
-  #if ENABLED(CREALITY_V42X_BLTOUCH_ON_5PIN)
-    #define USE_PROBE_FOR_Z_HOMING
-  #else
-    #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-  #endif
-
-  #if ENABLED(ENDER3_V427_BOARD) || ENABLED(ENDER5_V427_BOARD) || ENABLED(V422_TMC220X_DRIVERS)
+  #if ENABLED(ENDER3_V427_BOARD) || ENABLED(ENDER5_V427_BOARD) || ENABLED(V422_TMC2208_DRIVERS)
     #define X_DRIVER_TYPE TMC2208_STANDALONE
     #define Y_DRIVER_TYPE TMC2208_STANDALONE
     #define Z_DRIVER_TYPE TMC2208_STANDALONE
     #define E0_DRIVER_TYPE TMC2208_STANDALONE
+  #elif ENABLED(V422_TMC2209_DRIVERS)
+    #define X_DRIVER_TYPE TMC2209_STANDALONE
+    #define Y_DRIVER_TYPE TMC2209_STANDALONE
+    #define Z_DRIVER_TYPE TMC2209_STANDALONE
+    #define E0_DRIVER_TYPE TMC2209_STANDALONE
   #else
     #define X_DRIVER_TYPE A4988
     #define Y_DRIVER_TYPE A4988
@@ -638,12 +635,7 @@
   #define Y_MAX_ENDSTOP_INVERTING false
   #define Z_MAX_ENDSTOP_INVERTING false
   #define Z_MIN_PROBE_ENDSTOP_INVERTING false
-
-  #if ENABLED(CREALITY_V42X_BLTOUCH_ON_5PIN)
-    #define USE_PROBE_FOR_Z_HOMING
-  #else
-    #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-  #endif
+  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
   #define X_DRIVER_TYPE TMC2208_STANDALONE
   #define Y_DRIVER_TYPE TMC2208_STANDALONE

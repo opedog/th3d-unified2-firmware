@@ -6,7 +6,7 @@
 //======================= DO NOT MODIFY THIS FILE ===========================
 //===========================================================================
 
-#define UNIFIED_VERSION "TH3D UFW 2.23a"
+#define UNIFIED_VERSION "Ope's 3D Printer"
 
 /**
  * TH3D Sanity Checks
@@ -116,10 +116,6 @@
 
 #if ENABLED(CUSTOM_PROBE)
   #define ABL_ENABLE
-#endif
-#if ENABLED(KP3S_OEM_MOUNT)
-  #define ABL_ENABLE
-  #define NOZZLE_TO_PROBE_OFFSET { 37, -3, 0 }
 #endif
 #if ENABLED(ANET_A2_OEM_MOUNT)
   #define ABL_ENABLE
@@ -296,6 +292,7 @@
   #define Z_PROBE_OFFSET_RANGE_MAX     1
   
   #define Z_MIN_PROBE_REPEATABILITY_TEST
+  //#define Z_AFTER_PROBING              5 //Disabled for testing.
   #define Z_AFTER_HOMING               5
   #define Z_PROBE_LOW_POINT           -10
   
@@ -303,7 +300,7 @@
     #define FIX_MOUNTED_PROBE
   #endif
   
-  #if ENABLED(SLOWER_PROBE_MOVES) || ENABLED(PROBING_STEPPERS_OFF)
+  #if ENABLED(SLOWER_PROBE_MOVES)
     #define XY_PROBE_SPEED (133*60)
   #else
     #if ENABLED(EZABL_SUPERFASTPROBE)
@@ -501,14 +498,14 @@
 #define DISPLAY_CHARSET_HD44780 JAPANESE
 #define LCD_INFO_SCREEN_STYLE 0
 #define DISABLE_REDUCED_ACCURACY_WARNING
-#if DISABLED(DWIN_CREALITY_LCD) && DISABLED(LCD2004) && DISABLED(TFT_COLOR_UI)
+#if DISABLED(DWIN_CREALITY_LCD) && DISABLED(LCD2004)
   #define SHOW_BOOTSCREEN
   #define SHOW_CUSTOM_BOOTSCREEN
 #endif
 
-#if ENABLED(TH3D_STATUS_SCREEN_LOGO)
-  #define CUSTOM_STATUS_SCREEN_IMAGE
-#endif
+//#if ENABLED(TH3D_STATUS_SCREEN_LOGO)
+//  #define CUSTOM_STATUS_SCREEN_IMAGE
+//#endif
 
 #if DISABLED(DWIN_CREALITY_LCD) && DISABLED(SPACE_SAVER)
   #define INDIVIDUAL_AXIS_HOMING_MENU
