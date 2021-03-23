@@ -351,7 +351,7 @@
  * General Firmware Settings
  */
 
-#define STRING_CONFIG_H_AUTHOR "TH3D Studio"
+#define STRING_CONFIG_H_AUTHOR "Ope"
 #define CUSTOM_VERSION_FILE Version.h
 
 #if ENABLED(CUSTOM_PRINTER_NAME)
